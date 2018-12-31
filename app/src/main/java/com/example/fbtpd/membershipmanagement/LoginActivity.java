@@ -41,8 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userID = idText.getText().toString();
-                String userPassword = passwordText.getText().toString();
+                final String userID = idText.getText().toString();
+                final String userPassword = passwordText.getText().toString();
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -55,6 +55,8 @@ public class LoginActivity extends AppCompatActivity {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                 Toast.makeText(LoginActivity.this, (idText.getText().toString())+"님 환영합니다",Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.putExtra("userID",userID);
+                                intent.putExtra("userPassword",userPassword);
                                 LoginActivity.this.startActivity(intent);
                                 finish();
                             }
