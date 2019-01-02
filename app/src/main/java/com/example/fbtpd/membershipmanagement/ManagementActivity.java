@@ -3,6 +3,9 @@ package com.example.fbtpd.membershipmanagement;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,6 +20,7 @@ public class ManagementActivity extends AppCompatActivity {
     private ListView listView;
     private UserListAdapter adapter;
     private List<User> userList;
+    private List<User>saveList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +30,9 @@ public class ManagementActivity extends AppCompatActivity {
 
         listView =(ListView)findViewById(R.id.listView);
         userList = new ArrayList<User>();
+        saveList = new ArrayList<User>();
 
-        adapter = new UserListAdapter(getApplicationContext(), userList, this);
+        adapter = new UserListAdapter(getApplicationContext(), userList, this,saveList);
         listView.setAdapter(adapter);
 
         try{
@@ -43,7 +48,10 @@ public class ManagementActivity extends AppCompatActivity {
                 userAge = object.getString("userAge");
                 User user = new User(userID, userPassword, userName, userAge);
                 if(!userID.equals("fbtpduf94"))
+                {
                     userList.add(user);
+                    saveList.add(user);
+                }
                 count++;
 
             }
@@ -52,5 +60,35 @@ public class ManagementActivity extends AppCompatActivity {
         catch (Exception e){
             e.printStackTrace();
         }
+
+        final EditText search  = (EditText)findViewById(R.id.search);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchUser(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    public  void searchUser(String search){
+        userList.clear();
+        for(int position = 0 ; position <saveList.size(); position++)
+        {
+            if(saveList.get(position).getUserID().contains(search))
+            {
+                userList.add(saveList.get(position));
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 }

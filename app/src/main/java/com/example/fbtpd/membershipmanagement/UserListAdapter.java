@@ -24,12 +24,14 @@ public class UserListAdapter extends BaseAdapter {
     private Context context;
     private List<User> userList;
     private  Activity parentActivity;
+    private List<User> saveList;
 
-    public UserListAdapter(Context context, List<User> userList,Activity parentActivity)
+    public UserListAdapter(Context context, List<User> userList,Activity parentActivity, List<User> saveList)
     {
         this.context = context;
         this.userList = userList;
         this.parentActivity =parentActivity;
+        this.saveList = saveList;
     }
     @Override
     public int getCount() {
@@ -80,6 +82,13 @@ public class UserListAdapter extends BaseAdapter {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 if(success) {
                                                     userList.remove(position);
+                                                    for(int position=0 ; position < saveList.size() ; position++)
+                                                    {
+                                                        if(saveList.get(position).getUserID().equals(userID.getText().toString()))
+                                                        {
+                                                            saveList.remove(position);
+                                                        }
+                                                    }
                                                     notifyDataSetChanged();
                                                 }
                                             }
