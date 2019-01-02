@@ -19,7 +19,7 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity {
 
     private AlertDialog dialog;
-
+    private String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.putExtra("userID",userID);
                                 intent.putExtra("userPassword",userPassword);
+                                intent.putExtra("userName",userName);
                                 LoginActivity.this.startActivity(intent);
                                 finish();
                             }
@@ -74,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 };
-                LoginRequest loginRequest = new LoginRequest(userID, userPassword,responseListener );
+                LoginRequest loginRequest = new LoginRequest(userID, userPassword, responseListener );
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(loginRequest);
             }

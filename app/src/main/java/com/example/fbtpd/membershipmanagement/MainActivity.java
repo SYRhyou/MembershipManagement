@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         String userPassword = intent.getStringExtra("userPassword");
         String userName = intent.getStringExtra("userName");
 
-        welcomeMessage.setText("환영합니다. "+ userID +"님");
+        welcomeMessage.setText("환영합니다. "+ userName +"님");
         idText.setText("ID = " + userID);
         passwordText.setText("PW = " +userPassword);
 
@@ -87,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 while((temp = bufferedReader.readLine()) != null){
                     stringBuilder.append(temp +"\n");
                     Log.d(MainActivity.this.getClass().getName(), temp);
-                    Log.d(MainActivity.this.getClass().getName(), temp);
-
                  }
                 bufferedReader.close();
                 inputStream.close();

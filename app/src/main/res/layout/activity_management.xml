@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/activity_management"
     android:orientation="vertical"
-    android:background="#D1D1D1"
+    android:background="#FFFFFF"
     tools:context=".ManagementActivity">
 
     

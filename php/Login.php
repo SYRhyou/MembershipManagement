@@ -19,6 +19,7 @@
 		$response["success"] = true;
 		$response["userID"] = $userID;
 		$response["userPassword"] = $userPassword;
+		$response["userName"] = $userName;
 	}
 	
 	echo json_encode($response);

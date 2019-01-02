@@ -25,6 +25,7 @@ public class UserListAdapter extends BaseAdapter {
     private List<User> userList;
     private  Activity parentActivity;
     private List<User> saveList;
+    boolean success;
 
     public UserListAdapter(Context context, List<User> userList,Activity parentActivity, List<User> saveList)
     {
@@ -53,12 +54,10 @@ public class UserListAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         View v = View.inflate(context, R.layout.user, null);
         final TextView userID = (TextView) v.findViewById(R.id.userID);
-        TextView userPassword = (TextView) v.findViewById(R.id.userPassword);
         TextView userName = (TextView) v.findViewById(R.id.userName);
         TextView userAge = (TextView) v.findViewById(R.id.userAge);
 
         userID.setText(userList.get(position).getUserID());
-        userPassword.setText(userList.get(position).getUserPassword());
         userName.setText(userList.get(position).getUserName());
         userAge.setText(userList.get(position).getUserAge());
 
@@ -74,7 +73,7 @@ public class UserListAdapter extends BaseAdapter {
                         try
                         {
                             JSONObject jsonResponse = new JSONObject(response);
-                            final boolean success = jsonResponse.getBoolean("success");
+                            success = jsonResponse.getBoolean("success");
 
                                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(parentActivity);
                                 alertDialog.setMessage("정말 삭제 하시겠습니까?");
@@ -96,8 +95,8 @@ public class UserListAdapter extends BaseAdapter {
                                 alertDialog.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        success = false;
                                         Toast.makeText(parentActivity,"취소",Toast.LENGTH_SHORT).show();
-
                                     }
                                 });
                                 alertDialog.show();
